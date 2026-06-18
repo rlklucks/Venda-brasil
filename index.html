@@ -11,7 +11,8 @@
         .hero { background: #005533; color: white; padding: 20px 10px; }
         .bloco { background: white; max-width: 400px; margin: 20px auto; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .estoque-contador { background: #ffebee; color: #c62828; padding: 8px; border-radius: 8px; font-weight: bold; margin-bottom: 15px; border: 1px dashed #c62828; font-size: 14px; }
-        .promo { background: #ffcc00; color: #005533; padding: 10px; font-weight: bold; border-radius: 8px; margin-bottom: 10px; }
+        .promo { background: #ffcc00; color: #005533; padding: 10px; font-weight: bold; border-radius: 8px; margin-bottom: 5px; }
+        .info-entrega { background: #e8f5e9; color: #2e7d32; padding: 8px; font-size: 13px; font-weight: bold; border-radius: 8px; margin-bottom: 15px; border: 1px solid #c8e6c9; }
         .tabs { display: flex; gap: 5px; margin: 15px 0; }
         .tab-btn { flex: 1; padding: 8px; cursor: pointer; border: 1px solid #ccc; border-radius: 5px; background: #eee; font-size: 12px; }
         .tab-btn.active { background: #005533; color: white; border-color: #005533; }
@@ -31,6 +32,7 @@
     <div class="bloco">
         <div class="estoque-contador" id="est1">🚨 Restam 136 unidades!</div>
         <div class="promo">PROMOÇÃO 1: 2 Camisas por R$ 119,90</div>
+        <div class="info-entrega">🚚 Entrega em até 5 dias úteis | Frete Rápido e Barato!</div>
         <img src="IMG_5541.jpeg" width="100%" alt="Blusa">
         <div class="tabs">
             <button class="tab-btn active" id="btn1-cartao" onclick="trocarTab(1, 'cartao')">Cartão</button>
@@ -53,6 +55,7 @@
     <div class="bloco">
         <div class="estoque-contador" id="est2">🚨 Restam 136 unidades!</div>
         <div class="promo" style="background:#00bcd4; color:white;">PROMOÇÃO 2: 3 Femininas por R$ 119,90</div>
+        <div class="info-entrega">🚚 Entrega em até 5 dias úteis | Frete Rápido e Barato!</div>
         <img src="IMG_5543.jpeg" width="100%" alt="Blusa Feminina">
         <div class="tabs">
             <button class="tab-btn active" id="btn2-cartao" onclick="trocarTab(2, 'cartao')">Cartão</button>
