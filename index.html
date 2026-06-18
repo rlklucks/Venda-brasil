@@ -6,61 +6,19 @@
     <title>Loja - Equipe da Sorte</title>
     <style>
         body { font-family: sans-serif; margin: 0; background: #f4f4f4; text-align: center; }
-        
-        .anuncio-topo { 
-            background: linear-gradient(90deg, #ff0000, #ff5500); 
-            color: white; 
-            padding: 15px 10px; 
-            font-weight: bold; 
-            font-size: 18px; 
-            letter-spacing: 1px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            animation: pulsa 1.5s infinite;
-        }
-        @keyframes pulsa {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); background: linear-gradient(90deg, #cc0000, #ff3300); }
-            100% { transform: scale(1); }
-        }
-
-        .hero { background: #005533; color: white; padding: 30px 10px; }
+        .anuncio-topo { background: linear-gradient(90deg, #ff0000, #ff5500); color: white; padding: 15px 10px; font-weight: bold; font-size: 18px; animation: pulsa 1.5s infinite; }
+        @keyframes pulsa { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
+        .hero { background: #005533; color: white; padding: 20px 10px; }
         .bloco { background: white; max-width: 400px; margin: 20px auto; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        
-        .estoque-contador { 
-            background: #ffebee; 
-            color: #c62828; 
-            padding: 8px; 
-            border-radius: 8px; 
-            font-weight: bold; 
-            font-size: 14px; 
-            margin-bottom: 15px; 
-            border: 1px dashed #c62828;
-        }
-
+        .estoque-contador { background: #ffebee; color: #c62828; padding: 8px; border-radius: 8px; font-weight: bold; margin-bottom: 15px; border: 1px dashed #c62828; }
         .promo { background: #ffcc00; color: #005533; padding: 10px; font-weight: bold; border-radius: 8px; margin-bottom: 10px; }
         .tabs { display: flex; gap: 5px; margin: 15px 0; }
-        .tab-btn { flex: 1; padding: 8px; cursor: pointer; border: 1px solid #ccc; border-radius: 5px; background: #eee; font-size: 12px; transition: 0.3s; }
+        .tab-btn { flex: 1; padding: 8px; cursor: pointer; border: 1px solid #ccc; border-radius: 5px; background: #eee; font-size: 12px; }
         .tab-btn.active { background: #005533; color: white; border-color: #005533; }
         .pagamento-area { display: none; margin-top: 10px; padding: 10px; border: 1px dashed #ccc; border-radius: 5px; }
         .btn-zap { background: #25d366; color: white; border: none; padding: 15px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 15px; }
         input[type="text"], select { width: 90%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; }
-        
-        .notificacao-compra {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.85);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 30px;
-            font-size: 13px;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            display: none;
-            z-index: 9999;
-            white-space: nowrap;
-        }
+        .notificacao-compra { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(0, 0, 0, 0.85); color: white; padding: 12px 25px; border-radius: 30px; font-size: 13px; font-weight: bold; display: none; z-index: 9999; }
     </style>
 </head>
 <body>
@@ -69,20 +27,49 @@
     <div class="hero"><h1>Blusa Brasil Premium</h1></div>
 
     <div class="bloco">
-        <div class="estoque-contador" id="est1">🚨 ATENÇÃO: Restam 136 unidades no estoque!</div>
+        <div class="estoque-contador" id="est1">🚨 Restam apenas 136 unidades!</div>
         <div class="promo">PROMOÇÃO 1: 2 Camisas por R$ 119,90</div>
         <img src="IMG_5541.jpeg" width="100%" alt="Blusa">
-        <input type="text" id="cep1" placeholder="Digite seu CEP" onblur="processarCep(1)">
+        
+        <div class="tabs">
+            <button class="tab-btn active" id="btn1-cartao" onclick="trocarTab(1, 'cartao')">Cartão</button>
+            <button class="tab-btn" id="btn1-pix" onclick="trocarTab(1, 'pix')">Pix/Boleto</button>
+        </div>
+        <div id="cartao1" class="pagamento-area" style="display:block;">
+            <select id="parc1">
+                <script>for(let i=1; i<=12; i++) document.write(`<option value="${i}">${i}x c/ juros</option>`);</script>
+            </select>
+        </div>
+        <div id="pix1" class="pagamento-area">Pagamento via Pix ou Boleto.</div>
+
+        <label>Tamanho 1:</label><select id="t1"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+        <label>Tamanho 2:</label><select id="t2"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+        <input type="text" id="cep1" placeholder="CEP" onblur="processarCep(1)">
         <input type="text" id="end1" placeholder="Endereço">
         <p id="frete1" style="color:red; font-size:14px; font-weight:bold;"></p>
         <button class="btn-zap" onclick="pedir(1)">PEDIR PROMOÇÃO 1</button>
     </div>
 
     <div class="bloco">
-        <div class="estoque-contador" id="est2">🚨 ATENÇÃO: Restam 136 unidades no estoque!</div>
+        <div class="estoque-contador" id="est2">🚨 Restam apenas 136 unidades!</div>
         <div class="promo" style="background:#00bcd4; color:white;">PROMOÇÃO 2: 3 Femininas por R$ 119,90</div>
         <img src="IMG_5543.jpeg" width="100%" alt="Blusa Feminina">
-        <input type="text" id="cep2" placeholder="Digite seu CEP" onblur="processarCep(2)">
+        
+        <div class="tabs">
+            <button class="tab-btn active" id="btn2-cartao" onclick="trocarTab(2, 'cartao')">Cartão</button>
+            <button class="tab-btn" id="btn2-pix" onclick="trocarTab(2, 'pix')">Pix/Boleto</button>
+        </div>
+        <div id="cartao2" class="pagamento-area" style="display:block;">
+            <select id="parc2">
+                <script>for(let i=1; i<=12; i++) document.write(`<option value="${i}">${i}x c/ juros</option>`);</script>
+            </select>
+        </div>
+        <div id="pix2" class="pagamento-area">Pagamento via Pix ou Boleto.</div>
+
+        <label>Tam 1:</label><select id="tf1"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+        <label>Tam 2:</label><select id="tf2"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+        <label>Tam 3:</label><select id="tf3"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+        <input type="text" id="cep2" placeholder="CEP" onblur="processarCep(2)">
         <input type="text" id="end2" placeholder="Endereço">
         <p id="frete2" style="color:red; font-size:14px; font-weight:bold;"></p>
         <button class="btn-zap" onclick="pedir(2)">PEDIR PROMOÇÃO 2</button>
@@ -91,43 +78,39 @@
     <div id="popup-compra" class="notificacao-compra">🛒 Alguém acabou de comprar!</div>
 
     <script>
-        // Lógica de estoque que desce e reseta
         let estoque = 136;
         setInterval(() => {
-            if (estoque > 4) {
-                estoque--;
-                document.getElementById('est1').innerText = `🚨 ATENÇÃO: Restam apenas ${estoque} unidades no estoque!`;
-                document.getElementById('est2').innerText = `🚨 ATENÇÃO: Restam apenas ${estoque} unidades no estoque!`;
-            } else {
-                estoque = 136;
-            }
-        }, 8000); // O estoque desce a cada 8 segundos
+            if (estoque > 4) { estoque--; document.getElementById('est1').innerText = `🚨 Restam apenas ${estoque} unidades!`; document.getElementById('est2').innerText = `🚨 Restam apenas ${estoque} unidades!`; }
+            else { estoque = 136; }
+        }, 8000);
 
-        // Notificações falsas
-        const cidades = ["São Paulo", "Rio de Janeiro", "Belo Horizonte", "Curitiba", "Salvador", "Brasília", "Porto Alegre"];
-        setInterval(() => {
-            let popup = document.getElementById('popup-compra');
-            popup.innerText = `🎉 Alguém de ${cidades[Math.floor(Math.random() * cidades.length)]} acabou de comprar!`;
-            popup.style.display = 'block';
-            setTimeout(() => { popup.style.display = 'none'; }, 4000);
-        }, 12000);
+        function trocarTab(id, tipo) {
+            document.getElementById('cartao'+id).style.display = (tipo === 'cartao') ? 'block' : 'none';
+            document.getElementById('pix'+id).style.display = (tipo === 'pix') ? 'block' : 'none';
+            document.getElementById('btn'+id+'-cartao').classList.toggle('active', tipo === 'cartao');
+            document.getElementById('btn'+id+'-pix').classList.toggle('active', tipo === 'pix');
+        }
 
         async function processarCep(id) {
             let cep = document.getElementById('cep'+id).value.replace(/\D/g, '');
             if(cep.length != 8) return;
             let res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
             let data = await res.json();
-            if(!data.erro) {
-                document.getElementById('end'+id).value = `${data.logradouro}, ${data.bairro} - ${data.localidade}`;
-                let frete = (data.uf === 'MG') ? 15.00 : 29.90;
-                document.getElementById('frete'+id).innerText = `Frete para ${data.uf}: R$ ${frete.toFixed(2)}`;
-            }
+            if(!data.erro) { document.getElementById('end'+id).value = `${data.logradouro}, ${data.bairro} - ${data.localidade}`; let f = (data.uf === 'MG') ? 15.00 : 29.90; document.getElementById('frete'+id).innerText = `Frete para ${data.uf}: R$ ${f.toFixed(2)}`; }
         }
+
         function pedir(t) {
             let end = document.getElementById('end'+t).value;
-            let msg = `Promoção ${t}: Solicito pedido. Endereço: ${end}`;
+            let pag = (document.getElementById('cartao'+t).style.display === 'block') ? "Cartão" : "Pix/Boleto";
+            let msg = `Promoção ${t}. Pagamento: ${pag}. Endereço: ${end}`;
             window.open("https://wa.me/5532987194791?text=" + encodeURIComponent(msg), "_blank");
         }
+
+        setInterval(() => {
+            let p = document.getElementById('popup-compra');
+            p.style.display = 'block';
+            setTimeout(() => { p.style.display = 'none'; }, 3000);
+        }, 10000);
     </script>
 </body>
 </html>
