@@ -23,7 +23,7 @@
 </head>
 <body>
 
-    <div class="anuncio-topo">🔥 ULTIMAS UNIDADES DA PROMOÇÃO! CORRA ANTES QUE ACABE! 🔥</div>
+    <div class="anuncio-topo">🔥 ULTIMAS UNIDADES! CORRA ANTES QUE ACABE! 🔥</div>
     <div class="hero"><h1>Blusa Brasil Premium</h1></div>
 
     <div class="bloco">
@@ -36,59 +36,34 @@
             <button class="tab-btn" id="btn1-pix" onclick="trocarTab(1, 'pix')">Pix/Boleto</button>
         </div>
         <div id="cartao1" class="pagamento-area" style="display:block;">
-            <select id="parc1">
+            <select id="parc1" onchange="calcularTotal(1)">
                 <script>for(let i=1; i<=12; i++) document.write(`<option value="${i}">${i}x c/ juros</option>`);</script>
             </select>
         </div>
-        <div id="pix1" class="pagamento-area">Pagamento via Pix ou Boleto.</div>
+        <p id="total1" style="font-weight:bold; color:#005533;">Total c/ Frete: R$ 134,90</p>
 
-        <label>Tamanho 1:</label><select id="t1"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
-        <label>Tamanho 2:</label><select id="t2"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
-        <input type="text" id="cep1" placeholder="CEP" onblur="processarCep(1)">
+        <input type="text" id="cep1" placeholder="Digite seu CEP" onblur="processarCep(1)">
         <input type="text" id="end1" placeholder="Endereço">
-        <p id="frete1" style="color:red; font-size:14px; font-weight:bold;"></p>
         <button class="btn-zap" onclick="pedir(1)">PEDIR PROMOÇÃO 1</button>
-    </div>
-
-    <div class="bloco">
-        <div class="estoque-contador" id="est2">🚨 Restam apenas 136 unidades!</div>
-        <div class="promo" style="background:#00bcd4; color:white;">PROMOÇÃO 2: 3 Femininas por R$ 119,90</div>
-        <img src="IMG_5543.jpeg" width="100%" alt="Blusa Feminina">
-        
-        <div class="tabs">
-            <button class="tab-btn active" id="btn2-cartao" onclick="trocarTab(2, 'cartao')">Cartão</button>
-            <button class="tab-btn" id="btn2-pix" onclick="trocarTab(2, 'pix')">Pix/Boleto</button>
-        </div>
-        <div id="cartao2" class="pagamento-area" style="display:block;">
-            <select id="parc2">
-                <script>for(let i=1; i<=12; i++) document.write(`<option value="${i}">${i}x c/ juros</option>`);</script>
-            </select>
-        </div>
-        <div id="pix2" class="pagamento-area">Pagamento via Pix ou Boleto.</div>
-
-        <label>Tam 1:</label><select id="tf1"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
-        <label>Tam 2:</label><select id="tf2"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
-        <label>Tam 3:</label><select id="tf3"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
-        <input type="text" id="cep2" placeholder="CEP" onblur="processarCep(2)">
-        <input type="text" id="end2" placeholder="Endereço">
-        <p id="frete2" style="color:red; font-size:14px; font-weight:bold;"></p>
-        <button class="btn-zap" onclick="pedir(2)">PEDIR PROMOÇÃO 2</button>
     </div>
 
     <div id="popup-compra" class="notificacao-compra">🛒 Alguém acabou de comprar!</div>
 
     <script>
+        let vF = { 1: 15.00 }; // Frete padrão
+
+        // Estoque decrescente
         let estoque = 136;
         setInterval(() => {
-            if (estoque > 4) { estoque--; document.getElementById('est1').innerText = `🚨 Restam apenas ${estoque} unidades!`; document.getElementById('est2').innerText = `🚨 Restam apenas ${estoque} unidades!`; }
+            if (estoque > 4) { estoque--; document.getElementById('est1').innerText = `🚨 Restam apenas ${estoque} unidades!`; }
             else { estoque = 136; }
         }, 8000);
 
-        function trocarTab(id, tipo) {
-            document.getElementById('cartao'+id).style.display = (tipo === 'cartao') ? 'block' : 'none';
-            document.getElementById('pix'+id).style.display = (tipo === 'pix') ? 'block' : 'none';
-            document.getElementById('btn'+id+'-cartao').classList.toggle('active', tipo === 'cartao');
-            document.getElementById('btn'+id+'-pix').classList.toggle('active', tipo === 'pix');
+        function calcularTotal(id) {
+            let n = parseInt(document.getElementById('parc'+id).value);
+            let tot = 119.90 + vF[id];
+            let valFinal = (n > 1) ? tot * 1.10 : tot;
+            document.getElementById('total'+id).innerText = `Total c/ Frete: R$ ${valFinal.toFixed(2)} (${n}x de R$ ${(valFinal/n).toFixed(2)})`;
         }
 
         async function processarCep(id) {
@@ -96,21 +71,31 @@
             if(cep.length != 8) return;
             let res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
             let data = await res.json();
-            if(!data.erro) { document.getElementById('end'+id).value = `${data.logradouro}, ${data.bairro} - ${data.localidade}`; let f = (data.uf === 'MG') ? 15.00 : 29.90; document.getElementById('frete'+id).innerText = `Frete para ${data.uf}: R$ ${f.toFixed(2)}`; }
+            if(!data.erro) {
+                document.getElementById('end'+id).value = `${data.logradouro}, ${data.bairro} - ${data.localidade}`;
+                vF[id] = (data.uf === 'MG') ? 15.00 : 29.90;
+                calcularTotal(id);
+            }
+        }
+
+        function trocarTab(id, tipo) {
+            document.getElementById('cartao'+id).style.display = (tipo === 'cartao') ? 'block' : 'none';
+            document.getElementById('btn'+id+'-cartao').classList.toggle('active', tipo === 'cartao');
+            document.getElementById('btn'+id+'-pix').classList.toggle('active', tipo === 'pix');
+            calcularTotal(id);
         }
 
         function pedir(t) {
             let end = document.getElementById('end'+t).value;
-            let pag = (document.getElementById('cartao'+t).style.display === 'block') ? "Cartão" : "Pix/Boleto";
-            let msg = `Promoção ${t}. Pagamento: ${pag}. Endereço: ${end}`;
-            window.open("https://wa.me/5532987194791?text=" + encodeURIComponent(msg), "_blank");
+            let total = document.getElementById('total'+t).innerText;
+            window.open("https://wa.me/5532987194791?text=" + encodeURIComponent("Pedido Promoção 1. " + total + ". Endereço: " + end), "_blank");
         }
 
         setInterval(() => {
             let p = document.getElementById('popup-compra');
             p.style.display = 'block';
             setTimeout(() => { p.style.display = 'none'; }, 3000);
-        }, 10000);
+        }, 12000);
     </script>
 </body>
 </html>
