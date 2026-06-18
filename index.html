@@ -44,7 +44,10 @@
 
         <label>Tamanho 1:</label><select id="t1"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
         <label>Tamanho 2:</label><select id="t2"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
-        <input type="text" id="end1" placeholder="Endereço e CEP">
+        
+        <input type="text" id="cep1" placeholder="CEP (00000-000)" onblur="buscarCep(1)">
+        <input type="text" id="end1" placeholder="Endereço">
+        
         <input type="text" id="cupom1" placeholder="Cupom de 10% (PRIMEIRA10)">
         <button class="btn-zap" onclick="pedir(1)">PEDIR PROMOÇÃO 1</button>
     </div>
@@ -73,14 +76,25 @@
         <label>Tamanho 1:</label><select id="tf1"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
         <label>Tamanho 2:</label><select id="tf2"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
         <label>Tamanho 3:</label><select id="tf3"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
-        <input type="text" id="end2" placeholder="Endereço e CEP">
+        
+        <input type="text" id="cep2" placeholder="CEP (00000-000)" onblur="buscarCep(2)">
+        <input type="text" id="end2" placeholder="Endereço">
+        
         <input type="text" id="cupom2" placeholder="Cupom de 10% (PRIMEIRA10)">
         <button class="btn-zap" onclick="pedir(2)">PEDIR PROMOÇÃO 2</button>
     </div>
 
-    <div id="notif" class="notificacao">Alguém acabou de comprar!</div>
-
     <script>
+        async function buscarCep(id) {
+            let cep = document.getElementById('cep'+id).value.replace(/\D/g, '');
+            if(cep.length != 8) return;
+            let res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+            let data = await res.json();
+            if(!data.erro) {
+                document.getElementById('end'+id).value = `${data.logradouro}, ${data.bairro} - ${data.localidade}`;
+            }
+        }
+
         function trocarTab(id, tipo) {
             document.getElementById('cartao'+id).style.display = (tipo === 'cartao') ? 'block' : 'none';
             document.getElementById('outro'+id).style.display = (tipo !== 'cartao') ? 'block' : 'none';
@@ -95,26 +109,20 @@
         }
 
         function pedir(tipo) {
-            let end = (tipo == 1) ? document.getElementById('end1').value : document.getElementById('end2').value;
-            if(!end) { alert("Por favor, preencha o seu endereço!"); return; }
+            let end = document.getElementById('end'+tipo).value;
+            if(!end) { alert("Preencha o CEP para carregar o endereço!"); return; }
             
             let n = document.getElementById('parc'+tipo).value;
             let total = (n > 1) ? 119.90 * 1.10 : 119.90;
             let valParcela = total / n;
             let metodo = (document.getElementById('cartao'+tipo).style.display === 'block') ? `Cartão (${n}x de R$ ${valParcela.toFixed(2)})` : 'Pix ou Boleto';
-            let cupom = (tipo == 1) ? document.getElementById('cupom1').value : document.getElementById('cupom2').value;
             
             let msg = (tipo == 1) ? 
-                `Quero a Promoção 1: ${document.getElementById('t1').value}, ${document.getElementById('t2').value}. %0AEndereço: ${end}. %0APagamento: ${metodo}. %0ACupom: ${cupom}` : 
-                `Quero a Promoção 2 (3 Fem): ${document.getElementById('tf1').value}, ${document.getElementById('tf2').value}, ${document.getElementById('tf3').value}. %0AEndereço: ${end}. %0APagamento: ${metodo}. %0ACupom: ${cupom}`;
+                `Promoção 1: ${document.getElementById('t1').value}, ${document.getElementById('t2').value}. %0AEndereço: ${end}. %0APagamento: ${metodo}` : 
+                `Promoção 2: ${document.getElementById('tf1').value}, ${document.getElementById('tf2').value}, ${document.getElementById('tf3').value}. %0AEndereço: ${end}. %0APagamento: ${metodo}`;
             
             window.open("https://wa.me/5532987194791?text=" + msg, "_blank");
         }
-
-        setTimeout(() => {
-            document.getElementById('notif').style.display = 'block';
-            setTimeout(() => { document.getElementById('notif').style.display = 'none'; }, 4000);
-        }, 2000);
     </script>
 </body>
 </html>
