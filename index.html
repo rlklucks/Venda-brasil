@@ -2,13 +2,15 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Blusa Brasil - Equipe da Sorte</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja - Equipe da Sorte</title>
     <style>
         body { font-family: sans-serif; margin: 0; background: #f4f4f4; text-align: center; }
-        .hero { background: #005533; color: white; padding: 50px 20px; }
-        .produto { background: white; max-width: 400px; margin: -50px auto 20px; padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .btn-comprar { background: #ffcc00; color: #005533; border: none; padding: 15px 30px; font-weight: bold; border-radius: 5px; cursor: pointer; font-size: 18px; width: 100%; }
-        .beneficios { display: flex; justify-content: space-around; padding: 20px; background: white; margin-top: 20px; }
+        .hero { background: #005533; color: white; padding: 40px 20px; }
+        .produto { background: white; max-width: 400px; margin: -30px auto 20px; padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .btn-comprar { background: #ffcc00; color: #005533; border: none; padding: 15px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%; margin-bottom: 20px; }
+        .secao-detalhes { background: white; max-width: 400px; margin: 20px auto; padding: 20px; border-radius: 10px; text-align: left; }
+        h3 { color: #005533; }
     </style>
 </head>
 <body>
@@ -18,18 +20,30 @@
     </div>
 
     <div class="produto">
+        <!-- Cole o link da sua foto aqui -->
         <img src="LINK_DA_SUA_IMAGEM_AQUI" width="100%" alt="Blusa">
         <h2>R$ 99,90</h2>
-        <!-- Botão para o WhatsApp (Carrinho Simplificado) -->
         <a href="https://wa.me/5532987194791?text=Olá, quero comprar a blusa do Brasil!">
             <button class="btn-comprar">ADICIONAR AO CARRINHO (WHATSAPP)</button>
         </a>
     </div>
 
-    <div class="beneficios">
-        <div>🔒 Compra Segura</div>
-        <div>🚚 Envio Rápido</div>
+    <!-- Nova seção adicionada -->
+    <div class="secao-detalhes">
+        <h3>Detalhes do Produto</h3>
+        <ul>
+            <li>Material: Algodão de alta qualidade.</li>
+            <li>Cores vibrantes que não desbotam.</li>
+            <li>Conforto total para o dia a dia.</li>
+        </ul>
+        <h3>Tamanhos Disponíveis</h3>
+        <p>P, M, G, GG</p>
+    </div>
+
+    <div style="padding: 20px; color: #666;">
+        <p>Equipe da Sorte - Garantindo sua satisfação.</p>
     </div>
 </body>
 </html>
+
 
