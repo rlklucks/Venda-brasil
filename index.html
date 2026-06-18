@@ -3,82 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loja - Equipe da Sorte</title>
+    <title>Loja do Brasil</title>
     <style>
-        body { font-family: sans-serif; background: #f4f4f4; text-align: center; padding: 10px; }
-        .bloco { background: white; max-width: 400px; margin: 15px auto; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .promo { background: #ffcc00; color: #005533; padding: 10px; font-weight: bold; border-radius: 8px; margin-bottom: 10px; }
-        input, select { width: 90%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; }
-        .btn-zap { background: #25d366; color: white; border: none; padding: 15px; font-weight: bold; border-radius: 8px; width: 100%; cursor: pointer; margin-top: 10px; }
-        #resultado { font-size: 1.1em; color: #333; margin: 15px 0; }
+        body { font-family: sans-serif; margin: 0; background: #f4f4f4; text-align: center; }
+        .hero { background: #005533; color: white; padding: 40px 20px; }
+        .bloco { background: white; max-width: 400px; margin: 20px auto; padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .promo { background: #ffcc00; color: #005533; padding: 10px; font-weight: bold; border-radius: 5px; margin-bottom: 15px; }
+        .btn-zap { background: #25d366; color: white; border: none; padding: 15px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%; margin-top: 10px; }
+        select { width: 100%; padding: 10px; margin: 5px 0 10px 0; border-radius: 5px; border: 1px solid #ccc; }
     </style>
 </head>
 <body>
+    <div class="hero">
+        <h1>Blusa Brasil Premium</h1>
+        <p>A camisa oficial da Equipe da Sorte</p>
+    </div>
 
+    <!-- Promoção 1 -->
     <div class="bloco">
-        <div class="promo">FINALIZAR PEDIDO</div>
-        
-        <label>CEP:</label>
-        <input type="text" id="cep" placeholder="00000-000" onblur="buscarCep()">
-        
-        <label>Endereço:</label>
-        <input type="text" id="rua" placeholder="Rua / Avenida">
-        <input type="text" id="bairro" placeholder="Bairro">
-        <input type="text" id="cidade" placeholder="Cidade">
+        <div class="promo">PROMOÇÃO 1: 2 Camisas por R$ 119,90</div>
+        <img src="IMG_5541.jpeg" width="100%" alt="Blusa">
+        <label>Tamanho 1:</label><select id="t1"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+        <label>Tamanho 2:</label><select id="t2"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+        <button class="btn-zap" onclick="pedir(1)">PEDIR PROMOÇÃO 1</button>
+    </div>
 
-        <label>Parcelamento:</label>
-        <select id="nParcelas" onchange="calcular()">
-            <option value="1">1x (R$ 119,90)</option>
-            <script>
-                for(let i=2; i<=24; i++) document.write(`<option value="${i}">${i}x com 10% juros</option>`);
-            </script>
-        </select>
-        
-        <div id="resultado">Valor da parcela: <b>R$ 119,90</b></div>
-
-        <button class="btn-zap" onclick="pedir()">ENVIAR PEDIDO VIA WHATSAPP</button>
+    <!-- Promoção 2 -->
+    <div class="bloco">
+        <div class="promo" style="background:#00bcd4; color:white;">PROMOÇÃO 2: 3 Femininas por R$ 119,90</div>
+        <img src=IMG_5543.jpeg width="100%" alt="Blusa Feminina">
+        <label>Tamanho 1:</label><select id="tf1"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+        <label>Tamanho 2:</label><select id="tf2"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+        <label>Tamanho 3:</label><select id="tf3"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+        <button class="btn-zap" onclick="pedir(2)">PEDIR PROMOÇÃO 2</button>
     </div>
 
     <script>
-        // Buscar CEP automático
-        async function buscarCep() {
-            let cep = document.getElementById('cep').value.replace(/\D/g, '');
-            if(cep.length != 8) return;
-            let res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-            let data = await res.json();
-            if(!data.erro) {
-                document.getElementById('rua').value = data.logradouro;
-                document.getElementById('bairro').value = data.bairro;
-                document.getElementById('cidade').value = data.localidade;
-            }
-        }
-
-        // Calcular parcelas fixas
-        function calcular() {
-            let n = parseInt(document.getElementById('nParcelas').value);
-            let precoBase = 119.90;
-            let total = (n > 1) ? (precoBase * 1.10) : precoBase;
-            let valorParcela = total / n;
-            
-            document.getElementById('resultado').innerHTML = 
-                `Valor da parcela: <b>R$ ${valorParcela.toFixed(2).replace('.', ',')}</b>` +
-                `<br><small>Total: R$ ${total.toFixed(2).replace('.', ',')}</small>`;
-        }
-
-        // Enviar pedido
-        function pedir() {
-            let n = document.getElementById('nParcelas').value;
-            let precoBase = 119.90;
-            let total = (n > 1) ? (precoBase * 1.10) : precoBase;
-            let valorParcela = total / n;
-            
-            let msg = `Olá! Quero finalizar meu pedido:%0A` +
-                      `Endereço: ${document.getElementById('rua').value}, ${document.getElementById('bairro').value} - ${document.getElementById('cidade').value}%0A` +
-                      `Parcelado em: ${n}x de R$ ${valorParcela.toFixed(2).replace('.', ',')}%0A` +
-                      `Total a pagar: R$ ${total.toFixed(2).replace('.', ',')}`;
-                      
+        function pedir(tipo) {
+            let msg = (tipo == 1) ? `Quero a promoção 1 (2 camisas): ${document.getElementById('t1').value}, ${document.getElementById('t2').value}` : `Quero a promoção 2 (3 femininas): ${document.getElementById('tf1').value}, ${document.getElementById('tf2').value}, ${document.getElementById('tf3').value}`;
             window.open("https://wa.me/5532987194791?text=" + msg, "_blank");
         }
     </script>
 </body>
-</html>
