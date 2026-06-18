@@ -21,6 +21,7 @@
         input[type="text"], select { width: 90%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; display: block; margin-left: auto; margin-right: auto; }
         label { font-size: 13px; font-weight: bold; display: block; margin-top: 5px; }
         .notificacao-compra { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); background: rgba(0, 0, 0, 0.85); color: white; padding: 12px 25px; border-radius: 30px; font-size: 13px; font-weight: bold; display: none; z-index: 9999; }
+        img { border-radius: 10px; margin-bottom: 15px; max-width: 100%; height: auto; }
     </style>
 </head>
 <body>
@@ -33,29 +34,16 @@
         <p style="text-decoration:line-through;color:#ffb3b3;font-size:20px;">De R$ 89,90</p>
         <h2 style="color:#ffcc00;font-size:42px;margin:5px 0;">R$ 39,90</h2>
         <p style="font-weight:bold;">🚚 Envio para todo Brasil</p>
-        <div style="background:#fff3cd;color:#000;padding:10px;border-radius:10px;max-width:350px;margin:15px auto;">⭐⭐⭐⭐⭐ 4.9/5 por mais de 500 clientes</div>
-    </div>
-
-    <div style="background:#e8f5e9;color:#1b5e20;padding:10px;border-radius:10px;max-width:350px;margin:10px auto;font-weight:bold;">
-        🔒 Garantia de satisfação ou seu dinheiro de volta
-    </div>
-
-    <div style="background:white;padding:15px;margin:15px auto;max-width:400px;border-radius:12px;">
-        ✅ Compra Segura<br>
-        🚚 Envio para Todo Brasil<br>
-        📦 Código de Rastreamento<br>
-        ⭐ Mais de 500 Clientes Satisfeitos
     </div>
 
     <!-- Promoção 1 -->
     <div class="bloco">
         <div class="estoque-contador" id="est1">🚨 Restam 23 unidades!</div>
         <div class="promo">PROMOÇÃO 1: 2 Camisas por R$ 119,90</div>
-        <div class="info-entrega">🚚 Entrega em até 5 dias úteis | Frete Rápido e Barato!</div>
         
-        <!-- IMAGEM PROMOÇÃO 1 -->
-        <img src="IMG_5541.jpeg" width="100%" alt="Blusa Brasil">
-        
+        <img src="IMG_5541.jpeg" alt="Camisas Brasil">
+
+        <div class="info-entrega">🚚 Entrega em até 5 dias úteis</div>
         <div class="tabs">
             <button class="tab-btn active" id="btn1-cartao" onclick="trocarTab(1, 'cartao')">Cartão</button>
             <button class="tab-btn" id="btn1-pix" onclick="trocarTab(1, 'pix')">Pix/Boleto</button>
@@ -64,9 +52,8 @@
             <select id="parc1" onchange="calcularTotal(1)"><script>for(let i=1; i<=12; i++) document.write(`<option value="${i}">${i}x c/ juros</option>`);</script></select>
         </div>
         <p id="total1" style="font-weight:bold; color:#005533;">Total c/ Frete: R$ 134,90</p>
-        <div style="margin-top:10px;font-size:13px;color:#666;">💳 Visa • Mastercard • Pix • Boleto</div>
-        <label>Tamanho Blusa Azul:</label><select id="t1"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
-        <label>Tamanho Blusa Amarela:</label><select id="t2"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+        <label>Tamanho Azul:</label><select id="t1"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+        <label>Tamanho Amarela:</label><select id="t2"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
         <input type="text" id="cep1" placeholder="CEP" onblur="processarCep(1)">
         <input type="text" id="end1" placeholder="Endereço">
         <button class="btn-zap" onclick="pedir(1)">PEDIR PROMOÇÃO 1</button>
@@ -76,11 +63,10 @@
     <div class="bloco">
         <div class="estoque-contador" id="est2">🚨 Restam 23 unidades!</div>
         <div class="promo" style="background:#00bcd4; color:white;">PROMOÇÃO 2: 3 Femininas por R$ 119,90</div>
-        <div class="info-entrega">🚚 Entrega em até 5 dias úteis | Frete Rápido e Barato!</div>
         
-        <!-- IMAGEM PROMOÇÃO 2 -->
-        <img src="IMG_5543.jpeg" width="100%" alt="Blusa Feminina">
-        
+        <img src="IMG_5543.jpeg" alt="Camisas Femininas">
+
+        <div class="info-entrega">🚚 Entrega em até 5 dias úteis</div>
         <div class="tabs">
             <button class="tab-btn active" id="btn2-cartao" onclick="trocarTab(2, 'cartao')">Cartão</button>
             <button class="tab-btn" id="btn2-pix" onclick="trocarTab(2, 'pix')">Pix/Boleto</button>
@@ -89,56 +75,26 @@
             <select id="parc2" onchange="calcularTotal(2)"><script>for(let i=1; i<=12; i++) document.write(`<option value="${i}">${i}x c/ juros</option>`);</script></select>
         </div>
         <p id="total2" style="font-weight:bold; color:#005533;">Total c/ Frete: R$ 134,90</p>
-        <label>Tamanho Blusa Azul:</label><select id="tf1"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
-        <label>Tamanho Blusa Amarela:</label><select id="tf2"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
-        <label>Tamanho Blusa Verde:</label><select id="tf3"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+        <label>Tamanho Azul:</label><select id="tf1"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+        <label>Tamanho Amarela:</label><select id="tf2"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+        <label>Tamanho Verde:</label><select id="tf3"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
         <input type="text" id="cep2" placeholder="CEP" onblur="processarCep(2)">
         <input type="text" id="end2" placeholder="Endereço">
         <button class="btn-zap" onclick="pedir(2)">PEDIR PROMOÇÃO 2</button>
     </div>
 
-    <!-- Depoimentos -->
-    <div class="bloco">
-        <h3>O que nossos clientes dizem</h3>
-        <p>⭐⭐⭐⭐⭐</p>
-        <p>"Chegou em 4 dias e a qualidade surpreendeu!"</p>
-        <b>- Carlos, SP</b>
-        <hr>
-        <p>⭐⭐⭐⭐⭐</p>
-        <p>"Material excelente e veste muito bem."</p>
-        <b>- Juliana, MG</b>
-        <hr>
-        <p>⭐⭐⭐⭐⭐</p>
-        <p>"Comprei 3 e vou pedir mais."</p>
-        <b>- Marcos, RJ</b>
-    </div>
-
-    <footer style="background:#003300;color:white;padding:20px;margin-top:30px;">
-        <p>Equipe da Sorte © 2025</p>
-        <p>Atendimento via WhatsApp</p>
-        <p>🇧🇷 Loja Brasileira</p>
-    </footer>
-
     <div id="popup-compra" class="notificacao-compra">🛒 Alguém acabou de comprar!</div>
 
-    <a href="#" style="position:fixed; bottom:0; left:0; width:100%; background:#25d366; color:white; padding:18px; font-size:20px; font-weight:bold; text-decoration:none; z-index:99999; box-shadow:0 -2px 10px rgba(0,0,0,.2);">🛒 GARANTIR MINHA PROMOÇÃO</a>
+    <a href="#" class="btn-zap" style="position:fixed; bottom:0; left:0; width:100%; margin:0; border-radius:0; z-index:99999;" onclick="pedir(1)">🛒 GARANTIR MINHA PROMOÇÃO</a>
 
     <script>
         let vF = { 1: 15.00, 2: 15.00 };
-        let estoque = 23;
-
-        setInterval(() => {
-            if (estoque > 4) { estoque--; document.getElementById('est1').innerText = `🚨 Restam ${estoque} unidades!`; document.getElementById('est2').innerText = `🚨 Restam ${estoque} unidades!`; }
-            else { estoque = 23; }
-        }, 8000);
-
         function calcularTotal(id) {
             let n = parseInt(document.getElementById('parc'+id).value);
             let tot = 119.90 + vF[id];
             let valFinal = (n > 1) ? tot * 1.10 : tot;
             document.getElementById('total'+id).innerText = `Total c/ Frete: R$ ${valFinal.toFixed(2)} (${n}x de R$ ${(valFinal/n).toFixed(2)})`;
         }
-
         async function processarCep(id) {
             let cep = document.getElementById('cep'+id).value.replace(/\D/g, '');
             if(cep.length != 8) return;
@@ -150,19 +106,16 @@
                 calcularTotal(id);
             }
         }
-
         function trocarTab(id, tipo) {
             document.getElementById('cartao'+id).style.display = (tipo === 'cartao') ? 'block' : 'none';
             document.getElementById('btn'+id+'-cartao').classList.toggle('active', tipo === 'cartao');
             document.getElementById('btn'+id+'-pix').classList.toggle('active', tipo === 'pix');
         }
-
         function pedir(t) {
             let end = document.getElementById('end'+t).value;
             let msg = (t == 1) ? `Promoção 1: Azul ${document.getElementById('t1').value}, Amarela ${document.getElementById('t2').value}. End: ${end}` : `Promoção 2: Azul ${document.getElementById('tf1').value}, Amarela ${document.getElementById('tf2').value}, Verde ${document.getElementById('tf3').value}. End: ${end}`;
             window.open("https://wa.me/5532987194791?text=" + encodeURIComponent(msg), "_blank");
         }
-
         setInterval(() => {
             let p = document.getElementById('popup-compra');
             p.style.display = 'block';
@@ -171,3 +124,4 @@
     </script>
 </body>
 </html>
+
