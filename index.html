@@ -17,7 +17,8 @@
         .tab-btn.active { background: #005533; color: white; border-color: #005533; }
         .pagamento-area { display: none; margin-top: 10px; padding: 10px; border: 1px dashed #ccc; border-radius: 5px; }
         .btn-zap { background: #25d366; color: white; border: none; padding: 15px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 15px; }
-        input[type="text"], select { width: 90%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; }
+        input[type="text"], select { width: 90%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; display: block; margin-left: auto; margin-right: auto; }
+        label { font-size: 13px; font-weight: bold; display: block; margin-top: 5px; }
         .notificacao-compra { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(0, 0, 0, 0.85); color: white; padding: 12px 25px; border-radius: 30px; font-size: 13px; font-weight: bold; display: none; z-index: 9999; }
     </style>
 </head>
@@ -26,6 +27,7 @@
     <div class="anuncio-topo">🔥 ULTIMAS UNIDADES! CORRA ANTES QUE ACABE! 🔥</div>
     <div class="hero"><h1>Blusa Brasil Premium</h1></div>
 
+    <!-- Promoção 1 -->
     <div class="bloco">
         <div class="estoque-contador" id="est1">🚨 Restam 136 unidades!</div>
         <div class="promo">PROMOÇÃO 1: 2 Camisas por R$ 119,90</div>
@@ -38,13 +40,16 @@
             <select id="parc1" onchange="calcularTotal(1)"><script>for(let i=1; i<=12; i++) document.write(`<option value="${i}">${i}x c/ juros</option>`);</script></select>
         </div>
         <p id="total1" style="font-weight:bold; color:#005533;">Total c/ Frete: R$ 134,90</p>
-        <label>Tam 1:</label><select id="t1"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
-        <label>Tam 2:</label><select id="t2"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+        
+        <label>Tamanho Blusa Azul:</label><select id="t1"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+        <label>Tamanho Blusa Amarela:</label><select id="t2"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+        
         <input type="text" id="cep1" placeholder="CEP" onblur="processarCep(1)">
         <input type="text" id="end1" placeholder="Endereço">
         <button class="btn-zap" onclick="pedir(1)">PEDIR PROMOÇÃO 1</button>
     </div>
 
+    <!-- Promoção 2 -->
     <div class="bloco">
         <div class="estoque-contador" id="est2">🚨 Restam 136 unidades!</div>
         <div class="promo" style="background:#00bcd4; color:white;">PROMOÇÃO 2: 3 Femininas por R$ 119,90</div>
@@ -57,9 +62,11 @@
             <select id="parc2" onchange="calcularTotal(2)"><script>for(let i=1; i<=12; i++) document.write(`<option value="${i}">${i}x c/ juros</option>`);</script></select>
         </div>
         <p id="total2" style="font-weight:bold; color:#005533;">Total c/ Frete: R$ 134,90</p>
-        <label>Tam 1:</label><select id="tf1"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
-        <label>Tam 2:</label><select id="tf2"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
-        <label>Tam 3:</label><select id="tf3"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+        
+        <label>Tamanho Blusa Azul:</label><select id="tf1"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+        <label>Tamanho Blusa Amarela:</label><select id="tf2"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+        <label>Tamanho Blusa Verde:</label><select id="tf3"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+        
         <input type="text" id="cep2" placeholder="CEP" onblur="processarCep(2)">
         <input type="text" id="end2" placeholder="Endereço">
         <button class="btn-zap" onclick="pedir(2)">PEDIR PROMOÇÃO 2</button>
@@ -102,7 +109,7 @@
 
         function pedir(t) {
             let end = document.getElementById('end'+t).value;
-            let msg = (t == 1) ? `Promoção 1: ${document.getElementById('t1').value}, ${document.getElementById('t2').value}. End: ${end}` : `Promoção 2: ${document.getElementById('tf1').value}, ${document.getElementById('tf2').value}, ${document.getElementById('tf3').value}. End: ${end}`;
+            let msg = (t == 1) ? `Promoção 1: Azul ${document.getElementById('t1').value}, Amarela ${document.getElementById('t2').value}. End: ${end}` : `Promoção 2: Azul ${document.getElementById('tf1').value}, Amarela ${document.getElementById('tf2').value}, Verde ${document.getElementById('tf3').value}. End: ${end}`;
             window.open("https://wa.me/5532987194791?text=" + encodeURIComponent(msg), "_blank");
         }
 
