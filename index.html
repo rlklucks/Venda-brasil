@@ -3,16 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loja do Brasil
+    <title>Loja do Brasil</title>
     <style>
         body { font-family: sans-serif; margin: 0; background: #f4f4f4; text-align: center; }
         .hero { background: #005533; color: white; padding: 40px 20px; }
-        .produto { background: white; max-width: 400px; margin: -30px auto 20px; padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .promo { background: #ffcc00; color: #005533; padding: 10px; font-weight: bold; font-size: 18px; border-radius: 5px; margin-bottom: 20px; }
-        .btn-comprar { background: #25d366; color: white; border: none; padding: 15px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%; margin-bottom: 20px; font-size: 16px; }
-        .secao-detalhes { background: white; max-width: 400px; margin: 20px auto; padding: 20px; border-radius: 10px; text-align: left; }
-        select { width: 100%; padding: 10px; margin: 5px 0 15px 0; border-radius: 5px; border: 1px solid #ccc; }
-        h3 { color: #005533; }
+        .bloco { background: white; max-width: 400px; margin: 20px auto; padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .promo { background: #ffcc00; color: #005533; padding: 10px; font-weight: bold; border-radius: 5px; margin-bottom: 15px; }
+        .btn-zap { background: #25d366; color: white; border: none; padding: 15px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%; margin-top: 10px; }
+        select { width: 100%; padding: 10px; margin: 5px 0 10px 0; border-radius: 5px; border: 1px solid #ccc; }
     </style>
 </head>
 <body>
@@ -21,43 +19,28 @@
         <p>A camisa oficial da Equipe da Sorte</p>
     </div>
 
-    <div class="produto">
+    <!-- Promoção 1 -->
+    <div class="bloco">
+        <div class="promo">PROMOÇÃO 1: 2 Camisas por R$ 119,90</div>
         <img src="IMG_5541.jpeg" width="100%" alt="Blusa">
-        <div class="promo">PROMOÇÃO: 3 Blusas Femininas por R$ 119,90</div>
-        
-        <label><b>Tamanho 1ª Blusa:</b></label>
-        <select id="tamanho1"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
-
-        <label><b>Tamanho 2ª Blusa:</b></label>
-        <select id="tamanho2"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
-
-        <label><b>Tamanho 3ª Blusa:</b></label>
-        <select id="tamanho3"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
-
-        <button class="btn-comprar" onclick="enviarPedido()">PEDIR VIA WHATSAPP</button>
+        <label>Tamanho 1:</label><select id="t1"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+        <label>Tamanho 2:</label><select id="t2"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+        <button class="btn-zap" onclick="pedir(1)">PEDIR PROMOÇÃO 1</button>
     </div>
 
-    <div class="secao-detalhes">
-        <h3>Detalhes do Produto</h3>
-        <ul>
-            <li>Material: Alta qualidade.</li>
-            <li>Cores vibrantes que não desbotam.</li>
-            <li>Conforto total para o dia a dia.</li>
-        </ul>
-        <h3>Tamanhos Disponíveis</h3>
-        <p>P, M, G, GG</p>
-    </div>
-
-    <div style="padding: 20px; color: #666;">
-        <p>Equipe da Sorte - Garantindo sua satisfação.</p>
+    <!-- Promoção 2 -->
+    <div class="bloco">
+        <div class="promo" style="background:#00bcd4; color:white;">PROMOÇÃO 2: 3 Femininas por R$ 119,90</div>
+        <img src="image_2.png" width="100%" alt="Blusa Feminina">
+        <label>Tamanho 1:</label><select id="tf1"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+        <label>Tamanho 2:</label><select id="tf2"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+        <label>Tamanho 3:</label><select id="tf3"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+        <button class="btn-zap" onclick="pedir(2)">PEDIR PROMOÇÃO 2</button>
     </div>
 
     <script>
-        function enviarPedido() {
-            let t1 = document.getElementById('tamanho1').value;
-            let t2 = document.getElementById('tamanho2').value;
-            let t3 = document.getElementById('tamanho3').value;
-            let msg = `Olá! Quero aproveitar a promoção de 3 blusas femininas por R$ 119,90:%0A%0A1ª: ${t1}%0A2ª: ${t2}%0A3ª: ${t3}`;
+        function pedir(tipo) {
+            let msg = (tipo == 1) ? `Quero a promoção 1 (2 camisas): ${document.getElementById('t1').value}, ${document.getElementById('t2').value}` : `Quero a promoção 2 (3 femininas): ${document.getElementById('tf1').value}, ${document.getElementById('tf2').value}, ${document.getElementById('tf3').value}`;
             window.open("https://wa.me/5532987194791?text=" + msg, "_blank");
         }
     </script>
