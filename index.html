@@ -9,11 +9,13 @@
         .hero { background: #005533; color: white; padding: 30px 10px; }
         .bloco { background: white; max-width: 400px; margin: 20px auto; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .promo { background: #ffcc00; color: #005533; padding: 10px; font-weight: bold; border-radius: 8px; margin-bottom: 10px; }
-        .info { font-size: 13px; color: #555; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .tabs { display: flex; gap: 5px; margin: 15px 0; }
+        .tab-btn { flex: 1; padding: 8px; cursor: pointer; border: 1px solid #ccc; border-radius: 5px; background: #eee; font-size: 12px; transition: 0.3s; }
+        .tab-btn.active { background: #005533; color: white; border-color: #005533; }
+        .pagamento-area { display: none; margin-top: 10px; padding: 10px; border: 1px dashed #ccc; border-radius: 5px; }
         .btn-zap { background: #25d366; color: white; border: none; padding: 15px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 15px; }
         input[type="text"], select { width: 90%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; }
         .notificacao { background: #333; color: white; padding: 10px; position: fixed; bottom: 10px; width: 90%; margin: 0 5%; border-radius: 5px; font-size: 12px; display: none; }
-        .calc-res { font-weight: bold; margin: 10px 0; color: #333; }
     </style>
 </head>
 <body>
@@ -23,12 +25,23 @@
     <div class="bloco">
         <div class="promo">PROMOÇÃO 1: 2 Camisas por R$ 119,90</div>
         <img src="IMG_5541.jpeg" width="100%" alt="Blusa">
-        <label>Parcelamento:</label>
-        <select id="parc1" onchange="calc(1)">
-            <option value="1">1x (R$ 119,90)</option>
-            <script>for(let i=2; i<=24; i++) document.write(`<option value="${i}">${i}x com 10% juros</option>`);</script>
-        </select>
-        <p id="res1" class="calc-res">Total: R$ 119,90</p>
+        
+        <div class="tabs">
+            <button class="tab-btn active" id="btn1-cartao" onclick="trocarTab(1, 'cartao')">Cartão</button>
+            <button class="tab-btn" id="btn1-pix" onclick="trocarTab(1, 'pix')">Pix</button>
+            <button class="tab-btn" id="btn1-boleto" onclick="trocarTab(1, 'boleto')">Boleto</button>
+        </div>
+
+        <div id="cartao1" class="pagamento-area" style="display:block;">
+            <select id="parc1" onchange="calc(1)">
+                <script>for(let i=1; i<=12; i++) document.write(`<option value="${i}">${i}x ${i>1?'c/ 10% juros':''}</option>`);</script>
+            </select>
+            <p id="res1" style="font-weight:bold;">Parcela: R$ 119,90</p>
+        </div>
+        <div id="outro1" class="pagamento-area">
+            <p>Pagamento via <b>Pix ou Boleto</b>.<br>Finalize para falar comigo no WhatsApp.</p>
+        </div>
+
         <label>Tamanho 1:</label><select id="t1"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
         <label>Tamanho 2:</label><select id="t2"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
         <input type="text" id="end1" placeholder="Endereço e CEP">
@@ -40,12 +53,23 @@
     <div class="bloco">
         <div class="promo" style="background:#00bcd4; color:white;">PROMOÇÃO 2: 3 Femininas por R$ 119,90</div>
         <img src="IMG_5543.jpeg" width="100%" alt="Blusa Feminina">
-        <label>Parcelamento:</label>
-        <select id="parc2" onchange="calc(2)">
-            <option value="1">1x (R$ 119,90)</option>
-            <script>for(let i=2; i<=24; i++) document.write(`<option value="${i}">${i}x com 10% juros</option>`);</script>
-        </select>
-        <p id="res2" class="calc-res">Total: R$ 119,90</p>
+        
+        <div class="tabs">
+            <button class="tab-btn active" id="btn2-cartao" onclick="trocarTab(2, 'cartao')">Cartão</button>
+            <button class="tab-btn" id="btn2-pix" onclick="trocarTab(2, 'pix')">Pix</button>
+            <button class="tab-btn" id="btn2-boleto" onclick="trocarTab(2, 'boleto')">Boleto</button>
+        </div>
+
+        <div id="cartao2" class="pagamento-area" style="display:block;">
+            <select id="parc2" onchange="calc(2)">
+                <script>for(let i=1; i<=12; i++) document.write(`<option value="${i}">${i}x ${i>1?'c/ 10% juros':''}</option>`);</script>
+            </select>
+            <p id="res2" style="font-weight:bold;">Parcela: R$ 119,90</p>
+        </div>
+        <div id="outro2" class="pagamento-area">
+            <p>Pagamento via <b>Pix ou Boleto</b>.<br>Finalize para falar comigo no WhatsApp.</p>
+        </div>
+
         <label>Tamanho 1:</label><select id="tf1"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
         <label>Tamanho 2:</label><select id="tf2"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
         <label>Tamanho 3:</label><select id="tf3"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
@@ -57,24 +81,32 @@
     <div id="notif" class="notificacao">Alguém acabou de comprar!</div>
 
     <script>
+        function trocarTab(id, tipo) {
+            document.getElementById('cartao'+id).style.display = (tipo === 'cartao') ? 'block' : 'none';
+            document.getElementById('outro'+id).style.display = (tipo !== 'cartao') ? 'block' : 'none';
+            ['cartao', 'pix', 'boleto'].forEach(t => document.getElementById('btn'+id+'-'+t).classList.remove('active'));
+            document.getElementById('btn'+id+'-'+tipo).classList.add('active');
+        }
+
         function calc(id) {
             let n = parseInt(document.getElementById('parc'+id).value);
             let total = (n > 1) ? 119.90 * 1.10 : 119.90;
-            document.getElementById('res'+id).innerHTML = `Total: R$ ${total.toFixed(2).replace('.', ',')} (${n}x de R$ ${(total/n).toFixed(2).replace('.', ',')})`;
+            document.getElementById('res'+id).innerHTML = `Parcela: <b>R$ ${(total/n).toFixed(2).replace('.', ',')}</b>`;
         }
 
         function pedir(tipo) {
-            let end = document.getElementById('end'+tipo).value;
-            if(end == "") { alert("Por favor, preencha o seu endereço!"); return; }
+            let end = (tipo == 1) ? document.getElementById('end1').value : document.getElementById('end2').value;
+            if(!end) { alert("Por favor, preencha o seu endereço!"); return; }
             
             let n = document.getElementById('parc'+tipo).value;
             let total = (n > 1) ? 119.90 * 1.10 : 119.90;
             let valParcela = total / n;
-            let cupom = document.getElementById('cupom'+tipo).value;
+            let metodo = (document.getElementById('cartao'+tipo).style.display === 'block') ? `Cartão (${n}x de R$ ${valParcela.toFixed(2)})` : 'Pix ou Boleto';
+            let cupom = (tipo == 1) ? document.getElementById('cupom1').value : document.getElementById('cupom2').value;
             
             let msg = (tipo == 1) ? 
-                `Quero a Promoção 1: ${document.getElementById('t1').value}, ${document.getElementById('t2').value}. %0AEndereço: ${end}. %0APagamento: ${n}x de R$ ${valParcela.toFixed(2)} (Total: R$ ${total.toFixed(2)}). %0ACupom: ${cupom}` : 
-                `Quero a Promoção 2 (3 Fem): ${document.getElementById('tf1').value}, ${document.getElementById('tf2').value}, ${document.getElementById('tf3').value}. %0AEndereço: ${end}. %0APagamento: ${n}x de R$ ${valParcela.toFixed(2)} (Total: R$ ${total.toFixed(2)}). %0ACupom: ${cupom}`;
+                `Quero a Promoção 1: ${document.getElementById('t1').value}, ${document.getElementById('t2').value}. %0AEndereço: ${end}. %0APagamento: ${metodo}. %0ACupom: ${cupom}` : 
+                `Quero a Promoção 2 (3 Fem): ${document.getElementById('tf1').value}, ${document.getElementById('tf2').value}, ${document.getElementById('tf3').value}. %0AEndereço: ${end}. %0APagamento: ${metodo}. %0ACupom: ${cupom}`;
             
             window.open("https://wa.me/5532987194791?text=" + msg, "_blank");
         }
