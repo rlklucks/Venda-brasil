@@ -6,8 +6,39 @@
     <title>Loja - Equipe da Sorte</title>
     <style>
         body { font-family: sans-serif; margin: 0; background: #f4f4f4; text-align: center; }
+        
+        /* Anúncio Chamativo e Urgente */
+        .anuncio-topo { 
+            background: linear-gradient(90deg, #ff0000, #ff5500); 
+            color: white; 
+            padding: 15px 10px; 
+            font-weight: bold; 
+            font-size: 18px; 
+            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            animation: pulsa 1.5s infinite;
+        }
+        @keyframes pulsa {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); background: linear-gradient(90deg, #cc0000, #ff3300); }
+            100% { transform: scale(1); }
+        }
+
         .hero { background: #005533; color: white; padding: 30px 10px; }
         .bloco { background: white; max-width: 400px; margin: 20px auto; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        
+        /* Texto do Estoque */
+        .estoque-contador { 
+            background: #ffebee; 
+            color: #c62828; 
+            padding: 8px; 
+            border-radius: 8px; 
+            font-weight: bold; 
+            font-size: 14px; 
+            margin-bottom: 15px; 
+            border: 1px dashed #c62828;
+        }
+
         .promo { background: #ffcc00; color: #005533; padding: 10px; font-weight: bold; border-radius: 8px; margin-bottom: 10px; }
         .tabs { display: flex; gap: 5px; margin: 15px 0; }
         .tab-btn { flex: 1; padding: 8px; cursor: pointer; border: 1px solid #ccc; border-radius: 5px; background: #eee; font-size: 12px; transition: 0.3s; }
@@ -15,13 +46,38 @@
         .pagamento-area { display: none; margin-top: 10px; padding: 10px; border: 1px dashed #ccc; border-radius: 5px; }
         .btn-zap { background: #25d366; color: white; border: none; padding: 15px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 15px; }
         input[type="text"], select { width: 90%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; }
+        
+        /* Balão de Notificação de Compra Falsa */
+        .notificacao-compra {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.85);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 9999;
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body>
+
+    <!-- Anúncio bem chamativo na tela inicial -->
+    <div class="anuncio-topo">🔥 ULTIMAS UNIDADES DA PROMOÇÃO! CORRA ANTES QUE ACABE! 🔥</div>
+
     <div class="hero"><h1>Blusa Brasil Premium</h1></div>
 
     <!-- Promoção 1 -->
     <div class="bloco">
+        <!-- Indicador de Estoque Ilimitado fixo em 136 -->
+        <div class="estoque-contador">🚨 ATENÇÃO: Restam apenas 136 unidades no estoque!</div>
+
         <div class="promo">PROMOÇÃO 1: 2 Camisas por R$ 119,90</div>
         <img src="IMG_5541.jpeg" width="100%" alt="Blusa">
         <input type="text" id="cep1" placeholder="Digite seu CEP" onblur="processarCep(1)">
@@ -46,6 +102,9 @@
 
     <!-- Promoção 2 -->
     <div class="bloco">
+        <!-- Indicador de Estoque Ilimitado fixo em 136 -->
+        <div class="estoque-contador">🚨 ATENÇÃO: Restam apenas 136 unidades no estoque!</div>
+
         <div class="promo" style="background:#00bcd4; color:white;">PROMOÇÃO 2: 3 Femininas por R$ 119,90</div>
         <img src="IMG_5543.jpeg" width="100%" alt="Blusa Feminina">
         <input type="text" id="cep2" placeholder="Digite seu CEP" onblur="processarCep(2)">
@@ -69,8 +128,26 @@
         <button class="btn-zap" onclick="pedir(2)">PEDIR PROMOÇÃO 2</button>
     </div>
 
+    <!-- Balão de Notificação Dinâmica -->
+    <div id="popup-compra" class="notificacao-compra">🛒 Alguém acabou de comprar essa promoção!</div>
+
     <script>
         let vF = { 1: 0, 2: 0 };
+
+        // Sistema dinâmico que mostra notificações de compra falsas na tela de tempos em tempos
+        const cidades = ["São Paulo", "Rio de Janeiro", "Belo Horizonte", "Curitiba", "Salvador", "Brasília", "Porto Alegre", "Campinas"];
+        setInterval(() => {
+            let cidadeAleatoria = cidades[Math.floor(Math.random() * cidades.length)];
+            let popup = document.getElementById('popup-compra');
+            popup.innerText = `🎉 Alguém de ${cidadeAleatoria} acabou de comprar!`;
+            popup.style.display = 'block';
+            
+            // Some após 4 segundos
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 4000);
+        }, 9000); // Aparece a cada 9 segundos
+
         async function processarCep(id) {
             let cep = document.getElementById('cep'+id).value.replace(/\D/g, '');
             if(cep.length != 8) return;
