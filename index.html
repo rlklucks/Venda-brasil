@@ -23,15 +23,16 @@
 
     <div class="produto">
         <img src="IMG_5541.jpeg" width="100%" alt="Blusa">
-        <div class="promo">PROMOÇÃO: 2 camisas por R$ 119,90</div>
+        <div class="promo">PROMOÇÃO: 3 Blusas Femininas por R$ 119,90</div>
         
-        <label><b>Camisa 1:</b></label>
-        <select id="modelo1"><option>Masculina</option><option>Feminina</option></select>
-        <select id="tamanho1"><option>Tamanho P</option><option>Tamanho M</option><option>Tamanho G</option><option>Tamanho GG</option></select>
+        <label><b>Tamanho 1ª Blusa:</b></label>
+        <select id="tamanho1"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
 
-        <label><b>Camisa 2:</b></label>
-        <select id="modelo2"><option>Masculina</option><option>Feminina</option></select>
-        <select id="tamanho2"><option>Tamanho P</option><option>Tamanho M</option><option>Tamanho G</option><option>Tamanho GG</option></select>
+        <label><b>Tamanho 2ª Blusa:</b></label>
+        <select id="tamanho2"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
+
+        <label><b>Tamanho 3ª Blusa:</b></label>
+        <select id="tamanho3"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
 
         <button class="btn-comprar" onclick="enviarPedido()">PEDIR VIA WHATSAPP</button>
     </div>
@@ -53,11 +54,10 @@
 
     <script>
         function enviarPedido() {
-            let m1 = document.getElementById('modelo1').value;
             let t1 = document.getElementById('tamanho1').value;
-            let m2 = document.getElementById('modelo2').value;
             let t2 = document.getElementById('tamanho2').value;
-            let msg = `Olá! Quero aproveitar a promoção de 2 camisas por R$ 119,90:%0A%0A1ª: ${m1} - ${t1}%0A2ª: ${m2} - ${t2}`;
+            let t3 = document.getElementById('tamanho3').value;
+            let msg = `Olá! Quero aproveitar a promoção de 3 blusas femininas por R$ 119,90:%0A%0A1ª: ${t1}%0A2ª: ${t2}%0A3ª: ${t3}`;
             window.open("https://wa.me/5532987194791?text=" + msg, "_blank");
         }
     </script>
