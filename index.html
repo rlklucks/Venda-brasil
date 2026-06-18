@@ -7,7 +7,6 @@
     <style>
         body { font-family: sans-serif; margin: 0; background: #f4f4f4; text-align: center; }
         
-        /* Anúncio Chamativo e Urgente */
         .anuncio-topo { 
             background: linear-gradient(90deg, #ff0000, #ff5500); 
             color: white; 
@@ -27,7 +26,6 @@
         .hero { background: #005533; color: white; padding: 30px 10px; }
         .bloco { background: white; max-width: 400px; margin: 20px auto; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         
-        /* Texto do Estoque */
         .estoque-contador { 
             background: #ffebee; 
             color: #c62828; 
@@ -47,7 +45,6 @@
         .btn-zap { background: #25d366; color: white; border: none; padding: 15px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 15px; }
         input[type="text"], select { width: 90%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; }
         
-        /* Balão de Notificação de Compra Falsa */
         .notificacao-compra {
             position: fixed;
             bottom: 20px;
@@ -68,85 +65,52 @@
 </head>
 <body>
 
-    <!-- Anúncio bem chamativo na tela inicial -->
     <div class="anuncio-topo">🔥 ULTIMAS UNIDADES DA PROMOÇÃO! CORRA ANTES QUE ACABE! 🔥</div>
-
     <div class="hero"><h1>Blusa Brasil Premium</h1></div>
 
-    <!-- Promoção 1 -->
     <div class="bloco">
-        <!-- Indicador de Estoque Ilimitado fixo em 136 -->
-        <div class="estoque-contador">🚨 ATENÇÃO: Restam apenas 136 unidades no estoque!</div>
-
+        <div class="estoque-contador" id="est1">🚨 ATENÇÃO: Restam 136 unidades no estoque!</div>
         <div class="promo">PROMOÇÃO 1: 2 Camisas por R$ 119,90</div>
         <img src="IMG_5541.jpeg" width="100%" alt="Blusa">
         <input type="text" id="cep1" placeholder="Digite seu CEP" onblur="processarCep(1)">
         <input type="text" id="end1" placeholder="Endereço">
         <p id="frete1" style="color:red; font-size:14px; font-weight:bold;"></p>
-
-        <div class="tabs">
-            <button class="tab-btn active" id="btn1-cartao" onclick="trocarTab(1, 'cartao')">Cartão</button>
-            <button class="tab-btn" id="btn1-pix" onclick="trocarTab(1, 'pix')">Pix/Boleto</button>
-        </div>
-        <div id="cartao1" class="pagamento-area" style="display:block;">
-            <select id="parc1" onchange="calcularTotal(1)">
-                <script>for(let i=1; i<=12; i++) document.write(`<option value="${i}">${i}x c/ juros</option>`);</script>
-            </select>
-        </div>
-        <p id="total1" style="font-weight:bold; margin-top:10px;">Total c/ Frete: R$ 119,90</p>
-
-        <label>Tamanho da camisa azul:</label><select id="t1"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
-        <label>Tamanho da camisa amarela:</label><select id="t2"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
         <button class="btn-zap" onclick="pedir(1)">PEDIR PROMOÇÃO 1</button>
     </div>
 
-    <!-- Promoção 2 -->
     <div class="bloco">
-        <!-- Indicador de Estoque Ilimitado fixo em 136 -->
-        <div class="estoque-contador">🚨 ATENÇÃO: Restam apenas 136 unidades no estoque!</div>
-
+        <div class="estoque-contador" id="est2">🚨 ATENÇÃO: Restam 136 unidades no estoque!</div>
         <div class="promo" style="background:#00bcd4; color:white;">PROMOÇÃO 2: 3 Femininas por R$ 119,90</div>
         <img src="IMG_5543.jpeg" width="100%" alt="Blusa Feminina">
         <input type="text" id="cep2" placeholder="Digite seu CEP" onblur="processarCep(2)">
         <input type="text" id="end2" placeholder="Endereço">
         <p id="frete2" style="color:red; font-size:14px; font-weight:bold;"></p>
-
-        <div class="tabs">
-            <button class="tab-btn active" id="btn2-cartao" onclick="trocarTab(2, 'cartao')">Cartão</button>
-            <button class="tab-btn" id="btn2-pix" onclick="trocarTab(2, 'pix')">Pix/Boleto</button>
-        </div>
-        <div id="cartao2" class="pagamento-area" style="display:block;">
-            <select id="parc2" onchange="calcularTotal(2)">
-                <script>for(let i=1; i<=12; i++) document.write(`<option value="${i}">${i}x c/ juros</option>`);</script>
-            </select>
-        </div>
-        <p id="total2" style="font-weight:bold; margin-top:10px;">Total c/ Frete: R$ 119,90</p>
-
-        <label>Tamanho da camisa azul:</label><select id="tf1"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
-        <label>Tamanho da amarela:</label><select id="tf2"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
-        <label>Tamanho da verde:</label><select id="tf3"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
         <button class="btn-zap" onclick="pedir(2)">PEDIR PROMOÇÃO 2</button>
     </div>
 
-    <!-- Balão de Notificação Dinâmica -->
-    <div id="popup-compra" class="notificacao-compra">🛒 Alguém acabou de comprar essa promoção!</div>
+    <div id="popup-compra" class="notificacao-compra">🛒 Alguém acabou de comprar!</div>
 
     <script>
-        let vF = { 1: 0, 2: 0 };
-
-        // Sistema dinâmico que mostra notificações de compra falsas na tela de tempos em tempos
-        const cidades = ["São Paulo", "Rio de Janeiro", "Belo Horizonte", "Curitiba", "Salvador", "Brasília", "Porto Alegre", "Campinas"];
+        // Lógica de estoque que desce e reseta
+        let estoque = 136;
         setInterval(() => {
-            let cidadeAleatoria = cidades[Math.floor(Math.random() * cidades.length)];
+            if (estoque > 4) {
+                estoque--;
+                document.getElementById('est1').innerText = `🚨 ATENÇÃO: Restam apenas ${estoque} unidades no estoque!`;
+                document.getElementById('est2').innerText = `🚨 ATENÇÃO: Restam apenas ${estoque} unidades no estoque!`;
+            } else {
+                estoque = 136;
+            }
+        }, 8000); // O estoque desce a cada 8 segundos
+
+        // Notificações falsas
+        const cidades = ["São Paulo", "Rio de Janeiro", "Belo Horizonte", "Curitiba", "Salvador", "Brasília", "Porto Alegre"];
+        setInterval(() => {
             let popup = document.getElementById('popup-compra');
-            popup.innerText = `🎉 Alguém de ${cidadeAleatoria} acabou de comprar!`;
+            popup.innerText = `🎉 Alguém de ${cidades[Math.floor(Math.random() * cidades.length)]} acabou de comprar!`;
             popup.style.display = 'block';
-            
-            // Some após 4 segundos
-            setTimeout(() => {
-                popup.style.display = 'none';
-            }, 4000);
-        }, 9000); // Aparece a cada 9 segundos
+            setTimeout(() => { popup.style.display = 'none'; }, 4000);
+        }, 12000);
 
         async function processarCep(id) {
             let cep = document.getElementById('cep'+id).value.replace(/\D/g, '');
@@ -155,25 +119,13 @@
             let data = await res.json();
             if(!data.erro) {
                 document.getElementById('end'+id).value = `${data.logradouro}, ${data.bairro} - ${data.localidade}`;
-                vF[id] = (data.uf === 'MG') ? 15.00 : 29.90;
-                document.getElementById('frete'+id).innerText = `Frete para ${data.uf}: R$ ${vF[id].toFixed(2)}`;
-                calcularTotal(id);
+                let frete = (data.uf === 'MG') ? 15.00 : 29.90;
+                document.getElementById('frete'+id).innerText = `Frete para ${data.uf}: R$ ${frete.toFixed(2)}`;
             }
-        }
-        function calcularTotal(id) {
-            let n = parseInt(document.getElementById('parc'+id).value);
-            let tot = 119.90 + vF[id];
-            let val = (n > 1) ? tot * 1.10 : tot;
-            document.getElementById('total'+id).innerText = `Total c/ Frete: R$ ${val.toFixed(2)} (${n}x de R$ ${(val/n).toFixed(2)})`;
-        }
-        function trocarTab(id, tipo) {
-            document.getElementById('cartao'+id).style.display = (tipo === 'cartao') ? 'block' : 'none';
-            document.getElementById('btn'+id+'-cartao').classList.toggle('active', tipo === 'cartao');
-            document.getElementById('btn'+id+'-pix').classList.toggle('active', tipo === 'pix');
         }
         function pedir(t) {
             let end = document.getElementById('end'+t).value;
-            let msg = (t == 1) ? `Promoção 1: Azul ${document.getElementById('t1').value}, Amarela ${document.getElementById('t2').value}. End: ${end}` : `Promoção 2: Azul ${document.getElementById('tf1').value}, Amarela ${document.getElementById('tf2').value}, Verde ${document.getElementById('tf3').value}. End: ${end}`;
+            let msg = `Promoção ${t}: Solicito pedido. Endereço: ${end}`;
             window.open("https://wa.me/5532987194791?text=" + encodeURIComponent(msg), "_blank");
         }
     </script>
