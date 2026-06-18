@@ -49,6 +49,14 @@
     <div style="background:#fff3cd;color:#000;padding:10px;border-radius:10px;max-width:350px;margin:15px auto;">
         ⭐⭐⭐⭐⭐ 4.9/5 por mais de 500 clientes
     </div>
+</div><div style="background:#e8f5e9;color:#1b5e20;padding:10px;border-radius:10px;max-width:350px;margin:10px auto;font-weight:bold;">
+🔒 Garantia de satisfação ou seu dinheiro de volta
+</div>
+ <div style="background:white;padding:15px;margin:15px auto;max-width:400px;border-radius:12px;">
+✅ Compra Segura<br>
+🚚 Envio para Todo Brasil<br>
+📦 Código de Rastreamento<br>
+⭐ Mais de 500 Clientes Satisfeitos
 </div>
 
     <!-- Promoção 1 -->
@@ -65,7 +73,9 @@
             <select id="parc1" onchange="calcularTotal(1)"><script>for(let i=1; i<=12; i++) document.write(`<option value="${i}">${i}x c/ juros</option>`);</script></select>
         </div>
         <p id="total1" style="font-weight:bold; color:#005533;">Total c/ Frete: R$ 134,90</p>
-        
+        <div style="margin-top:10px;font-size:13px;color:#666;">
+💳 Visa • Mastercard • Pix • Boleto
+</div>
         <label>Tamanho Blusa Azul:</label><select id="t1"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
         <label>Tamanho Blusa Amarela:</label><select id="t2"><option>P</option><option>M</option><option>G</option><option>GG</option></select>
         
@@ -76,7 +86,7 @@
 
     <!-- Promoção 2 -->
     <div class="bloco">
-        <div class="estoque-contador" id="est2">🚨 Restam 136 unidades!</div>
+        <div class="estoque-contador" id="est2">🚨 Restam 23 unidades!</div>
         <div class="promo" style="background:#00bcd4; color:white;">PROMOÇÃO 2: 3 Femininas por R$ 119,90</div>
         <div class="info-entrega">🚚 Entrega em até 5 dias úteis | Frete Rápido e Barato!</div>
         <img src="IMG_5543.jpeg" width="100%" alt="Blusa Feminina">
@@ -102,10 +112,10 @@
 
     <script>
         let vF = { 1: 15.00, 2: 15.00 };
-        let estoque = 136;
+        let estoque = 23;
         setInterval(() => {
             if (estoque > 4) { estoque--; document.getElementById('est1').innerText = `🚨 Restam ${estoque} unidades!`; document.getElementById('est2').innerText = `🚨 Restam ${estoque} unidades!`; }
-            else { estoque = 136; }
+            else { estoque = 23; }
         }, 8000);
 
         function calcularTotal(id) {
@@ -143,7 +153,47 @@
             let p = document.getElementById('popup-compra');
             p.style.display = 'block';
             setTimeout(() => { p.style.display = 'none'; }, 3000);
-        }, 12000);
+        }, 12000);<div class="bloco">
+<h3>O que nossos clientes dizem</h3>
+
+<p>⭐⭐⭐⭐⭐</p>
+<p>"Chegou em 4 dias e a qualidade surpreendeu!"</p>
+<b>- Carlos, SP</b>
+
+<hr>
+
+<p>⭐⭐⭐⭐⭐</p>
+<p>"Material excelente e veste muito bem."</p>
+<b>- Juliana, MG</b>
+
+<hr>
+
+<p>⭐⭐⭐⭐⭐</p>
+<p>"Comprei 3 e vou pedir mais."</p>
+<b>- Marcos, RJ</b>
+</div>
+     <a href="#"
+style="
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:#25d366;
+color:white;
+padding:18px;
+font-size:20px;
+font-weight:bold;
+text-decoration:none;
+z-index:99999;
+box-shadow:0 -2px 10px rgba(0,0,0,.2);
+">
+🛒 GARANTIR MINHA PROMOÇÃO
+</a>
+     <footer style="background:#003300;color:white;padding:20px;margin-top:30px;">
+<p>Equipe da Sorte © 2025</p>
+<p>Atendimento via WhatsApp</p>
+<p>🇧🇷 Loja Brasileira</p>
+</footer>
     </script>
 </body>
 </html>
