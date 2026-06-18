@@ -8,8 +8,10 @@
         body { font-family: sans-serif; margin: 0; background: #f4f4f4; text-align: center; }
         .hero { background: #005533; color: white; padding: 40px 20px; }
         .produto { background: white; max-width: 400px; margin: -30px auto 20px; padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .btn-comprar { background: #ffcc00; color: #005533; border: none; padding: 15px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%; margin-bottom: 20px; }
+        .promo { background: #ffcc00; color: #005533; padding: 10px; font-weight: bold; font-size: 18px; border-radius: 5px; margin-bottom: 20px; }
+        .btn-comprar { background: #25d366; color: white; border: none; padding: 15px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%; margin-bottom: 20px; font-size: 16px; }
         .secao-detalhes { background: white; max-width: 400px; margin: 20px auto; padding: 20px; border-radius: 10px; text-align: left; }
+        select { width: 100%; padding: 10px; margin: 5px 0 15px 0; border-radius: 5px; border: 1px solid #ccc; }
         h3 { color: #005533; }
     </style>
 </head>
@@ -20,19 +22,24 @@
     </div>
 
     <div class="produto">
-        <!-- Cole o link da sua foto aqui -->
-        <img src=IMG_5541.jpeg width="100%" alt="Blusa">
-        <h2>R$ 99,90</h2>
-        <a href="https://wa.me/5532987194791?text=Olá, quero comprar a blusa do Brasil!">
-            <button class="btn-comprar">ADICIONAR AO CARRINHO (WHATSAPP)</button>
-        </a>
+        <img src="IMG_5541.jpeg" width="100%" alt="Blusa">
+        <div class="promo">PROMOÇÃO: 2 camisas por R$ 119,90</div>
+        
+        <label><b>Camisa 1:</b></label>
+        <select id="modelo1"><option>Masculina</option><option>Feminina</option></select>
+        <select id="tamanho1"><option>Tamanho P</option><option>Tamanho M</option><option>Tamanho G</option><option>Tamanho GG</option></select>
+
+        <label><b>Camisa 2:</b></label>
+        <select id="modelo2"><option>Masculina</option><option>Feminina</option></select>
+        <select id="tamanho2"><option>Tamanho P</option><option>Tamanho M</option><option>Tamanho G</option><option>Tamanho GG</option></select>
+
+        <button class="btn-comprar" onclick="enviarPedido()">PEDIR VIA WHATSAPP</button>
     </div>
 
-    <!-- Nova seção adicionada -->
     <div class="secao-detalhes">
         <h3>Detalhes do Produto</h3>
         <ul>
-            <li>Material: Algodão de alta qualidade.</li>
+            <li>Material: Alta qualidade.</li>
             <li>Cores vibrantes que não desbotam.</li>
             <li>Conforto total para o dia a dia.</li>
         </ul>
@@ -43,7 +50,16 @@
     <div style="padding: 20px; color: #666;">
         <p>Equipe da Sorte - Garantindo sua satisfação.</p>
     </div>
+
+    <script>
+        function enviarPedido() {
+            let m1 = document.getElementById('modelo1').value;
+            let t1 = document.getElementById('tamanho1').value;
+            let m2 = document.getElementById('modelo2').value;
+            let t2 = document.getElementById('tamanho2').value;
+            let msg = `Olá! Quero aproveitar a promoção de 2 camisas por R$ 119,90:%0A%0A1ª: ${m1} - ${t1}%0A2ª: ${m2} - ${t2}`;
+            window.open("https://wa.me/5532987194791?text=" + msg, "_blank");
+        }
+    </script>
 </body>
 </html>
-
-
