@@ -20,7 +20,7 @@
         .testimonials { margin-top: 40px; text-align: left; }
         .comment { background: #1a1a1a; padding: 15px; border-radius: 10px; margin-bottom: 10px; border-left: 3px solid #ffc107; }
         
-        /* Card de Perfil */
+        /* Card de Perfil com sua foto */
         .profile-card { background: #1a1a1a; padding: 15px; border-radius: 15px; display: flex; align-items: center; margin: 20px 0; border: 1px solid #333; text-align: left; }
         .profile-img { width: 60px; height: 60px; border-radius: 50%; margin-right: 15px; border: 2px solid #ffc107; object-fit: cover; }
         .status { color: #25d366; font-size: 0.8rem; font-weight: bold; }
@@ -57,7 +57,7 @@
             </div>
             
             <div class="profile-card">
-                <img src="image.png" alt="Kelvin Martins" class="profile-img">
+                <img src="IMG_6445.jpeg" alt="Kelvin Martins" class="profile-img">
                 <div>
                     <strong>Falar com Kelvin Martins</strong><br>
                     <span class="status">● Status: ONLINE ✅</span>
@@ -71,7 +71,6 @@
     <div id="notification"></div>
 
     <script>
-        // Contador 30 min
         let time = 30 * 60;
         const timerBox = document.getElementById('timer-box');
         setInterval(() => {
@@ -81,7 +80,6 @@
             if (time > 0) time--;
         }, 1000);
 
-        // Notificação de venda
         const names = ["Carlos", "Ana", "João", "Mariana"];
         const notif = document.getElementById('notification');
         setInterval(() => {
