@@ -18,9 +18,10 @@
         
         .trust-badges { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; text-align: left; font-size: 0.9rem; }
         .testimonials { margin-top: 40px; text-align: left; }
-        .comment { background: #1a1a1a; padding: 15px; border-radius: 10px; margin-bottom: 10px; border-left: 3px solid #ffc107; }
+        .comment { background: #1a1a1a; padding: 15px; border-radius: 10px; margin-bottom: 10px; border-left: 3px solid #ffc107; font-size: 0.95rem; }
+        .user-name { font-weight: bold; color: #ffc107; margin-bottom: 5px; display: block; }
+        .time-ago { color: #888; font-size: 0.8rem; margin-top: 5px; display: block; }
         
-        /* Card de Perfil Clicável */
         .profile-link { text-decoration: none; color: inherit; display: block; }
         .profile-card { background: #1a1a1a; padding: 15px; border-radius: 15px; display: flex; align-items: center; margin: 20px 0; border: 1px solid #333; text-align: left; }
         .profile-img { width: 60px; height: 60px; border-radius: 50%; margin-right: 15px; border: 2px solid #ffc107; object-fit: cover; }
@@ -51,7 +52,29 @@
         <div class="testimonials">
             <h2>O que estão dizendo:</h2>
             <div class="comment">
-                <p>★★★★★ "O curso é bem explicado e consegui fazer minhas primeiras vendas online. Recomendo!"</p>
+                <span class="user-name">Ricardo Alves</span>
+                <p>★★★★★ "O curso é muito prático, consegui aplicar tudo pelo celular."</p>
+                <span class="time-ago">há 20 minutos</span>
+            </div>
+            <div class="comment">
+                <span class="user-name">Fernanda Souza</span>
+                <p>★★★★★ "Já tinha tentado outras coisas, mas esse método realmente funciona."</p>
+                <span class="time-ago">há 1 hora</span>
+            </div>
+            <div class="comment">
+                <span class="user-name">Carlos Eduardo</span>
+                <p>★★★★★ "O brinde extra foi uma surpresa muito boa. Recomendo."</p>
+                <span class="time-ago">há 1 dia</span>
+            </div>
+            <div class="comment">
+                <span class="user-name">Mariana Lima</span>
+                <p>★★★★★ "Tive resultados rápidos, estou muito satisfeita."</p>
+                <span class="time-ago">há 1 semana</span>
+            </div>
+            <div class="comment">
+                <span class="user-name">João Pedro</span>
+                <p>★★★★★ "Show demais, obrigado Kelvin!"</p>
+                <span class="time-ago">agora mesmo</span>
             </div>
             
             <a href="https://wa.me/5532987194791" class="profile-link">
@@ -78,7 +101,7 @@
             if (time > 0) time--;
         }, 1000);
 
-        const names = ["Carlos", "Ana", "João", "Mariana"];
+        const names = ["Carlos", "Ana", "João", "Mariana", "Pedro", "Beatriz"];
         const notif = document.getElementById('notification');
         setInterval(() => {
             notif.innerHTML = `<strong>${names[Math.floor(Math.random()*names.length)]}</strong> acabou de comprar!`;
