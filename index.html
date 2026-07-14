@@ -20,12 +20,12 @@
         .testimonials { margin-top: 40px; text-align: left; }
         .comment { background: #1a1a1a; padding: 15px; border-radius: 10px; margin-bottom: 10px; border-left: 3px solid #ffc107; }
         
-        /* Card de Perfil com sua foto */
+        /* Card de Perfil Clicável */
+        .profile-link { text-decoration: none; color: inherit; display: block; }
         .profile-card { background: #1a1a1a; padding: 15px; border-radius: 15px; display: flex; align-items: center; margin: 20px 0; border: 1px solid #333; text-align: left; }
         .profile-img { width: 60px; height: 60px; border-radius: 50%; margin-right: 15px; border: 2px solid #ffc107; object-fit: cover; }
         .status { color: #25d366; font-size: 0.8rem; font-weight: bold; }
         
-        .main-img { width: 100%; max-width: 300px; margin: 20px 0; border-radius: 10px; }
         #notification { position: fixed; bottom: 20px; left: 20px; background: #333; padding: 15px; border-radius: 8px; border-left: 5px solid #25d366; display: none; }
     </style>
 </head>
@@ -33,8 +33,6 @@
     <div class="wrapper">
         <h1>Aprenda a vender na internet mesmo <span class="highlight">começando do zero.</span></h1>
         
-        <img src="IMG_5543.jpeg" alt="Curso" class="main-img">
-
         <div class="offer">
             <div class="timer" id="timer-box">⏰ Promoção válida somente hoje!</div>
             <div class="price-old">❌ De R$ 129,90</div>
@@ -56,16 +54,16 @@
                 <p>★★★★★ "O curso é bem explicado e consegui fazer minhas primeiras vendas online. Recomendo!"</p>
             </div>
             
-            <div class="profile-card">
-                <img src="IMG_6445.jpeg" alt="Kelvin Martins" class="profile-img">
-                <div>
-                    <strong>Falar com Kelvin Martins</strong><br>
-                    <span class="status">● Status: ONLINE ✅</span>
+            <a href="https://wa.me/5532987194791" class="profile-link">
+                <div class="profile-card">
+                    <img src="IMG_6445.jpeg" alt="Kelvin Martins" class="profile-img">
+                    <div>
+                        <strong>Falar com Kelvin Martins</strong><br>
+                        <span class="status">● Status: ONLINE ✅</span>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
-        
-        <p style="margin-top: 30px;">Dúvidas? Chame no WhatsApp: <strong>(32) 98719-4791</strong></p>
     </div>
 
     <div id="notification"></div>
